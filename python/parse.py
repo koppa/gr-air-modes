@@ -424,6 +424,7 @@ def make_parser(pub):
   publisher = pub
   def publish(message):
     [data, ecc, reference, int_timestamp, frac_timestamp] = message.split()
+    print message
     try:
       ret = air_modes.modes_report(modes_reply(int(data, 16)),
                                    int(ecc, 16),
