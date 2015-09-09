@@ -176,10 +176,7 @@ int air_modes::slicer_impl::work(int noutput_items,
                         | rx_packet.data[packet_length/8-1] << 0;
         rx_packet.crc ^= ap;
 
-        //crc for packets that aren't type 11 or type 17 is encoded with the transponder ID, which we don't know
-        //therefore we toss 'em if there's syndrome
-        //crc for the other short packets is usually nonzero, so they can't really be trusted that far
-        if(rx_packet.crc && (rx_packet.message_type == 11 || rx_packet.message_type == 17)) {continue;}
+        if(rx_packet.crc || (rx_packet.message_type != 11 || rx_packet.message_type != 17 || rx_packet.message_type != 18)) {continue;}
 
         pmt::pmt_t tstamp = tag_iter->value;
 
