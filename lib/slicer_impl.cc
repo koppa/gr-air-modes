@@ -176,7 +176,7 @@ int air_modes::slicer_impl::work(int noutput_items,
                         | rx_packet.data[packet_length/8-1] << 0;
         rx_packet.crc ^= ap;
 
-        if(rx_packet.crc || (rx_packet.message_type != 11 || rx_packet.message_type != 17 || rx_packet.message_type != 18)) {continue;}
+        if(rx_packet.crc || !(rx_packet.message_type == 11 || rx_packet.message_type == 17 || rx_packet.message_type == 18)) {continue;}
 
         pmt::pmt_t tstamp = tag_iter->value;
 
